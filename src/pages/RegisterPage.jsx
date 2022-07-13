@@ -108,16 +108,20 @@ function Register() {
 
         <Input
           title="Password"
+          type="password"
           name="password"
           onChange={handleInputChange}
           value={formInput.password}
+          placeholder="Enter Password"
         />
 
         <Input
           title="Confirm Password"
+          type="password"
           name="confirmPassword"
           onChange={handleInputChange}
           value={formInput.confirmPassword}
+          placeholder="Confirm Password"
         />
 
         <div style={{ marginTop: "10px" }}>

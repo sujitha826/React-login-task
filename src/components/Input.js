@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Input({ title, type, value, onChange, name }) {
+export default function Input({ title, type, value, onChange, placeholder, name }) {
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
       <p>{title}</p>
@@ -15,6 +15,7 @@ export default function Input({ title, type, value, onChange, name }) {
           borderRadius: "5px",
         }}
         onChange={(e) => onChange(e)}
+        placeholder={placeholder}
         value={value}
       />
     </div>
