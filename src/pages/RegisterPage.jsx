@@ -1,13 +1,14 @@
 import Button from "../components/Button";
 import Input from "../components/Input.js";
 import "../css/RegisterStyle.css";
-import { validateEmail, validatePassword } from "../validators/validateInputs";
+import { validateEmail, validatePassword, validatePhone } from "../validators/validateInputs";
 import React, { useState } from "react";
 
 function Register() {
   const [formInput, setFormInput] = useState({
     name: "",
     email: "",
+    phone: "",
     gender: "",
     dept: "Web",
     role: "User",
@@ -32,12 +33,16 @@ function Register() {
         "Name, email and password are mandatory...please fill all 3 fields"
       );
     if (!validateEmail(formInput.email)) return alert("Email is invalid");
+
+    if (!validatePhone(formInput.phone))
+      return alert("Please enter a valid phone number");
+    
     if (!validatePassword(formInput.password))
       return alert(
         "Password should contain atleast one alphabet and one digit and contain minimum 8 total chars"
       );
     if (!(formInput.password === formInput.confirmPassword))
-      return alert("Password and Confirm Password does not match.");
+      return alert("Password and Confirm Password do not match.");
 
     console.log(JSON.stringify(formInput));
     return alert("Successfully submitted registration");
@@ -66,6 +71,14 @@ function Register() {
           required
         />
 
+        <Input
+          title="Phone"
+          type="text"
+          name="phone"
+          placeholder="Enter your phone"
+          onChange={handleInputChange}
+          value={formInput.phone}
+        />
         <div> <label>
           Gender:
           <input type="radio" value="Male" name="gender" onChange={(e) => handleInputChange(e)} /> Male
