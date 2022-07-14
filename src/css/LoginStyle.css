@@ -1,0 +1,13 @@
+.login_page {
+    width: 30%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.field_input {
+    width: 70%;
+    margin-top: 10%;
+}

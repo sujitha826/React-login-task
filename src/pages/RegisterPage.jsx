@@ -1,8 +1,10 @@
+import { validateEmail, validatePassword, validatePhone } from "../validators/validateInputs";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Button from "../components/Button";
 import Input from "../components/Input.js";
 import "../css/RegisterStyle.css";
-import { validateEmail, validatePassword, validatePhone } from "../validators/validateInputs";
-import React, { useState } from "react";
 
 function Register() {
   const [formInput, setFormInput] = useState({
@@ -11,10 +13,12 @@ function Register() {
     phone: "",
     gender: "",
     dept: "Web",
-    role: "User",
+    role: "user",
     password: "",
     confirmPassword: "",
   });
+
+  const navigate = useNavigate();                   //  used to navigate to new URL(page)
 
   const handleInputChange = (e) => {
     setFormInput({
@@ -27,29 +31,47 @@ function Register() {
     if (
       formInput.email === "" ||
       formInput.password === "" ||
-      formInput.name === ""
+      formInput.name === "" ||
+      formInput.phone === ""
     )
       return alert(
-        "Name, email and password are mandatory...please fill all 3 fields"
+        "Name, email, phone and password are mandatory...please fill all 3 fields"
       );
     if (!validateEmail(formInput.email)) return alert("Email is invalid");
 
     if (!validatePhone(formInput.phone))
       return alert("Please enter a valid phone number");
-    
+
     if (!validatePassword(formInput.password))
       return alert(
-        "Password should contain atleast one alphabet and one digit and contain minimum 8 total chars"
+        "Password should contain atleast one alphabet,one digit and minimum 8 total chars"
       );
     if (!(formInput.password === formInput.confirmPassword))
       return alert("Password and Confirm Password do not match.");
 
-    console.log(JSON.stringify(formInput));
-    return alert("Successfully submitted registration");
+    console.log("User Inputs - " + JSON.stringify(formInput));
+
+    const usersAll = JSON.parse(localStorage.getItem("usersAll"));
+    if (!usersAll) {
+      const usersData = [{ ...formInput }];
+      localStorage.setItem("usersAll", JSON.stringify(usersData));              // error
+    }
+    else {
+      const isUserExisting = usersAll.find(
+        (user) => user.email === formInput.email
+      );
+      if (isUserExisting) {
+        return alert("User already exists try login once");
+      }
+      const usersData = [...usersAll, formInput];
+      localStorage.setItem("usersAll", JSON.stringify(usersData));
+      navigate("/login");
+    }
+    // return alert("Successfully submitted registration");
   };
 
   return (
-    <div className="centerbox">
+    <div className="register_form">
       <h2>Register Here</h2>
       <div className="field_input">
         <Input

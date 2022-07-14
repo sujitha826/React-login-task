@@ -1,11 +1,13 @@
-.register-form {
-  width: 50%;
+.register_form {
+  width: 40%;
   height: 95%;
   display: flex;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  }
+  border: 5px solid #00c3ffe1;
+  background-color: #DDDDDD;
+}
 
 .centerbox {
   box-shadow: #DDDDDD;
@@ -13,16 +15,16 @@
   box-sizing: border-box;
   width: 30%;
   padding: 10px;
-  height: 95%;
+  height: 100%;
   border: 8px solid #00c3ff0e;
   margin: 10px;
   align-items: center;
   font-family: sans-serif;
   justify-content: center;
-  }
+}
 
 
 .field_input {
   width: 70%;
-  margin-top: 0px;
+  margin-top: 0%;
 }
