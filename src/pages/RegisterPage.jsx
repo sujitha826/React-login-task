@@ -1,7 +1,6 @@
 import { validateEmail, validatePassword, validatePhone } from "../validators/validateInputs";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input.js";
 import "../css/RegisterStyle.css";
@@ -61,11 +60,12 @@ function Register() {
         (user) => user.email === formInput.email
       );
       if (isUserExisting) {
-        return alert("User already exists try login once");
+        // navigate("/");
+        return alert("User already exists try login once");               //  needs to check this alert
       }
       const usersData = [...usersAll, formInput];
       localStorage.setItem("usersAll", JSON.stringify(usersData));
-      navigate("/login");
+      navigate("/");
     }
     // return alert("Successfully submitted registration");
   };
@@ -85,7 +85,7 @@ function Register() {
         />
         <Input
           title="Email"
-          type="text"
+          type="email"
           name="email"
           placeholder="Enter your Email ID"
           onChange={handleInputChange}
@@ -160,6 +160,13 @@ function Register() {
         <div style={{ marginTop: "10px" }}>
           <Button onClick={handleSubmitForm} title="Register" />
         </div>
+
+        <div style={{ marginTop: "5px" }}>
+          <Link style={{ textDecoration: "none" }} to="/">
+            Already a user?? try login here
+          </Link>
+        </div>
+
       </div>
     </div>
   );
