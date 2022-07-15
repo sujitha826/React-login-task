@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import { validateEmail, validatePassword } from "../validators/validateInputs";
 import "../css/LoginStyle.css";
 
+
 export default function Login() {
     const navigate = useNavigate();
 
@@ -75,16 +76,16 @@ export default function Login() {
                         type="checkbox"
                         onClick={() => setShowPassword(!showPassword)}
                     />
-                    <p style={{ marginLeft: "10px" }}>show password</p>
+                    <p style={{ marginLeft: "7px" }}>show password</p>
                 </div>
-                <div style={{ marginTop: "20px" }}>
+                <div style={{ marginTop: "15px" }}>
                     <Link style={{ textDecoration: "none" }} to="/register">
                         New User?? Register now
                     </Link>
                 </div>
             </div>
             <div style={{ marginTop: "50px" }}>
-                <Button onClick={handleUserLogin} title="Login " />
+                <Button onClick={handleUserLogin} title="Login" />
             </div>
         </div>
     );

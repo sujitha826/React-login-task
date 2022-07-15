@@ -54,7 +54,7 @@ function Register() {
     const usersAll = JSON.parse(localStorage.getItem("usersAll"));
     if (!usersAll) {
       const usersData = [{ ...formInput }];
-      localStorage.setItem("usersAll", JSON.stringify(usersData));              // error
+      localStorage.setItem("usersAll", JSON.stringify(usersData));             
     }
     else {
       const isUserExisting = usersAll.find(
@@ -111,24 +111,22 @@ function Register() {
           <label>
             Department:
             <select
-              style={{ padding: "5px", marginTop: "10px" }}
+              style={{ padding: "5px", marginTop: "10px" , marginRight :"10px", marginLeft :"5px"}}
               value={formInput.dept}
               onChange={(e) => handleInputChange(e)}
               name="dept"
             >
-              <option value="Web">Web</option>
+              <option value="Web" defaultChecked>Web</option>
               <option value="Platform">Platform</option>
               <option value="Middleware">Middleware</option>
               <option value="Product Delivery">Product Delivery</option>
             </select>
           </label>
-        </div>
 
-        <div>
           <label>
             Role:
             <select
-              style={{ padding: "5px", marginTop: "10px" }}
+              style={{ padding: "5px", marginTop: "10px", marginLeft :"5px" }}
               value={formInput.role}
               onChange={(e) => handleInputChange(e)}
               name="role"
@@ -136,7 +134,7 @@ function Register() {
               <option value="admin">
                 admin
               </option>
-              <option value="user">user</option>
+              <option value="user" defaultChecked>user</option>
             </select>
           </label>
         </div>

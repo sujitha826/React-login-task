@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Button({ onClick, title }) {
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%",display:"flex", justifyContent:"center"}}>
       <button
         style={{
           padding: "10px 25px",
