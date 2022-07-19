@@ -13,3 +13,4 @@ export const validatePassword = (password) => {
   const regex = /^[A-Za-z0-9 ]+$/;
   return regex.test(password) && password.length >= 8 ? true : false;
 };
+

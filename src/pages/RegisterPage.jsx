@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Input from "../components/Input.js";
 import "../css/RegisterStyle.css";
 
+
 function Register() {
   const [formInput, setFormInput] = useState({
     name: "",
@@ -17,7 +18,14 @@ function Register() {
     confirmPassword: "",
   });
 
-  const navigate = useNavigate();                   //  used to navigate to new URL(page)
+  // const [formClass, setFormClass] = useState({ inputClass: "valid" });
+  const [emailError, setEmailError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [popupClass, setPopupClass] = useState("popupOpen");
+
+  const navigate = useNavigate();                   //  used to navigate to new URL(page) automatically without user intervention
 
   const handleInputChange = (e) => {
     setFormInput({
@@ -25,6 +33,10 @@ function Register() {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleClick = (e) => {
+    return setPopupClass("popupHidden");
+  }
 
   const handleSubmitForm = () => {
     if (
@@ -36,32 +48,42 @@ function Register() {
       return alert(
         "Name, email, phone and password are mandatory...please fill all 3 fields"
       );
-    if (!validateEmail(formInput.email)) return alert("Email is invalid");
+
+    if (!validateEmail(formInput.email)) {
+      return setEmailError(true);
+      // return alert("Please enter a valid email");
+    };
 
     if (!validatePhone(formInput.phone))
-      return alert("Please enter a valid phone number");
+      return setPhoneError(true);
+    //return alert("Please enter a valid phone number");
 
     if (!validatePassword(formInput.password))
-      return alert(
-        "Password should contain atleast one alphabet,one digit and minimum 8 total chars"
-      );
+      return setPasswordError(true);
+    //return alert("Password should contain atleast one alphabet,one digit and minimum 8 total chars");
     if (!(formInput.password === formInput.confirmPassword))
-      return alert("Password and Confirm Password do not match.");
+      return setConfirmPasswordError(true);
+    //return alert("Password and Confirm Password do not match.");
 
     console.log("User Inputs - " + JSON.stringify(formInput));
 
     const usersAll = JSON.parse(localStorage.getItem("usersAll"));
     if (!usersAll) {
       const usersData = [{ ...formInput }];
-      localStorage.setItem("usersAll", JSON.stringify(usersData));             
+      localStorage.setItem("usersAll", JSON.stringify(usersData));
     }
     else {
       const isUserExisting = usersAll.find(
         (user) => user.email === formInput.email
       );
       if (isUserExisting) {
-        // navigate("/");
-        return alert("User already exists try login once");               //  needs to check this alert
+        console.log("User already exists try login once");
+        return (
+          
+          <div className={popupClass}><h2>User already exists..try login once</h2>
+            <button onClick={(e) => handleClick(e)}>Close</button></div>
+        )
+        //return alert("User already exists try login once");               //  user already exists popup window
       }
       const usersData = [...usersAll, formInput];
       localStorage.setItem("usersAll", JSON.stringify(usersData));
@@ -83,6 +105,7 @@ function Register() {
           value={formInput.name}
           required
         />
+
         <Input
           title="Email"
           type="email"
@@ -92,6 +115,7 @@ function Register() {
           value={formInput.email}
           required
         />
+        {emailError && <div className="invalid">Please enter a valid email</div>}
 
         <Input
           title="Phone"
@@ -101,6 +125,8 @@ function Register() {
           onChange={handleInputChange}
           value={formInput.phone}
         />
+        {phoneError && <div className="invalid">Please enter a valid phone number</div>}
+
         <div> <label>
           Gender:
           <input type="radio" value="Male" name="gender" onChange={(e) => handleInputChange(e)} /> Male
@@ -111,7 +137,7 @@ function Register() {
           <label>
             Department:
             <select
-              style={{ padding: "5px", marginTop: "10px" , marginRight :"10px", marginLeft :"5px"}}
+              style={{ padding: "5px", marginTop: "10px", marginRight: "10px", marginLeft: "5px" }}
               value={formInput.dept}
               onChange={(e) => handleInputChange(e)}
               name="dept"
@@ -126,7 +152,7 @@ function Register() {
           <label>
             Role:
             <select
-              style={{ padding: "5px", marginTop: "10px", marginLeft :"5px" }}
+              style={{ padding: "5px", marginTop: "10px", marginLeft: "5px" }}
               value={formInput.role}
               onChange={(e) => handleInputChange(e)}
               name="role"
@@ -147,6 +173,7 @@ function Register() {
           value={formInput.password}
           placeholder="Enter Password"
         />
+        {passwordError && <div className="invalid">Password should contain atleast one alphabet,one digit and minimum 8 total chars</div>}
 
         <Input
           title="Confirm Password"
@@ -156,6 +183,7 @@ function Register() {
           value={formInput.confirmPassword}
           placeholder="Confirm Password"
         />
+        {confirmPasswordError && <div className="invalid">Password and Confirm Password do not match.</div>}
 
         <div style={{ marginTop: "10px" }}>
           <Button onClick={handleSubmitForm} title="Register" />
