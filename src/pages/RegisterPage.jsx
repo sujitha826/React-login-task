@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input.js";
+import PopUp from "../components/PopUp";
 import "../css/RegisterStyle.css";
 
 
@@ -24,6 +25,7 @@ function Register() {
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [popupClass, setPopupClass] = useState("popupOpen");
+  const [popupShow, setPopupShow] = useState(false);
 
   const navigate = useNavigate();                   //  used to navigate to new URL(page) automatically without user intervention
 
@@ -35,7 +37,7 @@ function Register() {
   };
 
   const handleClick = (e) => {
-    return setPopupClass("popupHidden");
+    return setPopupShow(true);
   }
 
   const handleSubmitForm = () => {
@@ -78,11 +80,7 @@ function Register() {
       );
       if (isUserExisting) {
         console.log("User already exists try login once");
-        return (
-          
-          <div className={popupClass}><h2>User already exists..try login once</h2>
-            <button onClick={(e) => handleClick(e)}>Close</button></div>
-        )
+        return setPopupShow(true);
         //return alert("User already exists try login once");               //  user already exists popup window
       }
       const usersData = [...usersAll, formInput];
@@ -194,8 +192,9 @@ function Register() {
             Already a user?? try login here
           </Link>
         </div>
-
+      {popupShow && <PopUp setPopupShow= {setPopupShow}/>}
       </div>
+      
     </div>
   );
 }
