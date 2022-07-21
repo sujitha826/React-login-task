@@ -20,7 +20,7 @@ function styleSelector(field) {
   return (field === "valid") ? style1 : style2;
 }
 
-export default function Input({ title, type, value, onChange, placeholder, styleSelect, name }) {
+export default function Input({ title, type, value, onChange, placeholder, name }) {
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
       <p>{title}</p>

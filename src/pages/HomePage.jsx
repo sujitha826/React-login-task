@@ -1,25 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Button from "../components/Button";
+import SearchBar from "../components/Search";
 import "../css/HomeStyle.css";
 
 export default function Home() {
     const { state } = useLocation();          // current user details as state passed from login page as { state : user }      
+    console.log(state);
     const navigate = useNavigate();
+    const filterRef = useRef();
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     const usersAll = JSON.parse(localStorage.getItem("usersAll"));
+
     const [userDetails, setUserDetails] = useState(usersAll);
-    console.log(state);
+
+    const [searchField, setSearchField] = useState({name : "", role : ""});              // object with 2 fields: name and role
+
+    const handleSearchTextChange = (e) => {
+        setSearchField({
+            ...searchField,
+            [e.target.name]: e.target.value,
+        })
+    };
+
+    const handleSearchSubmit = () => {
+        const result = usersAll.filter((user) =>
+            user.name.toLowerCase().includes(searchField.name.toLowerCase())
+        );
+        console.log(result);
+        if (currentUser.role === "admin") setUserDetails(result);
+        else {
+            const filteredUsers = result.filter(
+                (user) => user.role === "user"
+            );
+            setUserDetails(filteredUsers);
+        }
+    };
+
+
+    const handleClear = () => {
+        return setSearchField({name : "", role : ""})
+    };
+
 
     const handleLogOut = () => {
         localStorage.removeItem("currentUser");
         navigate("/");
     };
 
+    const handleEdit = (index) => {
+
+    };
+
     return (
         <div className="home_page">
-            <div style={{ display: "flex", flexDirection: "row", height: "10%", width: "100%" }}>
+            <header style={{ display: "flex", flexDirection: "row", height: "10%", width: "100%" }}>
                 <h2 style={{ color: "blue", justifyContent: "center" }}>Welcome  {currentUser.name}!!</h2>
                 <button
                     style={{
@@ -33,28 +68,31 @@ export default function Home() {
                         marginLeft: "1000px",
                         marginTop: "20px"
                     }} onClick={handleLogOut} >Logout</button>
-            </div>
+            </header>
+            <SearchBar searchField = {searchField} handleSearchTextChange={handleSearchTextChange} handleClear={handleClear} handleSearchSubmit={handleSearchSubmit} />
 
             <table className="table-style">
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Gender</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Phone</th>
+                        <th>Department</th>
                         <th>Role</th>
-                        {state.role === "admin" && <th>Edit</th>}
+                        <th>Others</th>
                     </tr>
                 </thead>
                 <tbody>
                     {userDetails.map((user, index) => (
                         <tr key={user.email}>
                             <td>{user.name}</td>
+                            <td>{user.gender}</td>
                             <td>{user.email}</td>
-                            <td>{user.password}</td>
                             <td>{user.phone}</td>
+                            <td>{user.dept}</td>
                             <td>{user.role}</td>
-                            {user.role === "user" && <td>Delete</td>}
+                            {user.role === "admin" && <td><button onClick={() => handleEdit(index)}>Edit</button></td>}
                         </tr>
                     ))}
                 </tbody>

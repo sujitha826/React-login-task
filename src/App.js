@@ -19,7 +19,7 @@ const ProtectedRoute = ({ redirectPath, children }) => {
   return children ? children : <Outlet />;
 };
 
- 
+
 function App() {
 
   return (
