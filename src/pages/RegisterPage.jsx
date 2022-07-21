@@ -36,9 +36,6 @@ function Register() {
     });
   };
 
-  const handleClick = (e) => {
-    return setPopupShow(true);
-  }
 
   const handleSubmitForm = () => {
     if (

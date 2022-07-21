@@ -19,7 +19,7 @@ const ProtectedRoute = ({ redirectPath, children }) => {
   return children ? children : <Outlet />;
 };
 
-
+ 
 function App() {
 
   return (
@@ -28,11 +28,12 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/*<Route path="/home" element={isLoggedIn() ? <Home /> : <Navigate replace to="/" />} />*/}
+
         <Route path="/home" element={
           <ProtectedRoute redirectPath="/">
             <Home />
-        
           </ProtectedRoute>} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

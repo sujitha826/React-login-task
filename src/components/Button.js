@@ -6,7 +6,7 @@ export default function Button({ onClick, title }) {
       <button
         style={{
           padding: "10px 25px",
-          background: "#197567",
+          background: "#197765",
           border: "0",
           color: "white",
           borderRadius: "5px",
