@@ -45,7 +45,7 @@ function Register() {
       formInput.phone === ""
     )
       return alert(
-        "Name, email, phone and password are mandatory...please fill all 3 fields"
+        "Name, email, phone and password are mandatory...please fill all 4 fields"
       );
 
     if (!validateEmail(formInput.email)) {

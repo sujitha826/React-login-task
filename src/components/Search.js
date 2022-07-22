@@ -8,7 +8,7 @@ export default function SearchBar({ searchField,
 }) {
 
     return (
-        <div style={{ display: "flex", flexDirection: "row", height: "8%", width: "50%" }}>
+        <div style={{ display: "flex", flexDirection: "row", height: "7%", width: "50%" }}>
             <p style={{ marginLeft: "10px", fontFamily: "sans-serif" }} >Name:</p>
             <input name="name"
                 type="text"
@@ -41,6 +41,7 @@ export default function SearchBar({ searchField,
                         admin
                     </option>
                     <option value="user">user</option>
+                    <option value="all" defaultChecked>all</option>
                 </select>
             </label>
             <button
@@ -52,8 +53,7 @@ export default function SearchBar({ searchField,
                     borderRadius: "5px",
                     cursor: "pointer",
                     alignContent: "center",
-                    marginLeft: "40px",
-                    height: "60%"
+                    marginLeft: "30px"                    
                 }}
                 onClick={handleSearchSubmit}
                 type="submit"
@@ -69,8 +69,7 @@ export default function SearchBar({ searchField,
                     borderRadius: "5px",
                     cursor: "pointer",
                     alignContent: "center",
-                    marginLeft: "30px",
-                    height: "60%"
+                    marginLeft: "30px"
                 }}
                 onClick={handleClear}
                 type="submit"
@@ -80,5 +79,4 @@ export default function SearchBar({ searchField,
 
         </div>
     )
-
 }

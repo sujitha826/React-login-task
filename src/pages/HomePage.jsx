@@ -5,7 +5,7 @@ import "../css/HomeStyle.css";
 
 export default function Home() {
     const { state } = useLocation();          // current user details as state passed from login page as { state : user }      
-    console.log(state);
+    console.log("State(current user) returned to home page" + JSON.stringify(state));
     const navigate = useNavigate();
     const filterRef = useRef();
 
@@ -13,19 +13,22 @@ export default function Home() {
     const usersAll = JSON.parse(localStorage.getItem("usersAll"));
 
     const [userDetails, setUserDetails] = useState(usersAll);
+    const [searchField, setSearchField] = useState({name : "", role : "all"});              // Search object with 2 fields: name and role
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editRow, setEditRow] = useState("");
 
-    const [searchField, setSearchField] = useState({name : "", role : ""});              // object with 2 fields: name and role
 
     const handleSearchTextChange = (e) => {
         setSearchField({
             ...searchField,
             [e.target.name]: e.target.value,
-        })
+        });
     };
 
     const handleSearchSubmit = () => {
+        console.log(searchField);
         const result = usersAll.filter((user) =>
-            user.name.toLowerCase().includes(searchField.name.toLowerCase())
+            (user.name.toLowerCase().includes(searchField.name.toLowerCase()) && (user.role === searchField.role))
         );
         console.log(result);
         if (currentUser.role === "admin") setUserDetails(result);
@@ -39,7 +42,8 @@ export default function Home() {
 
 
     const handleClear = () => {
-        return setSearchField({name : "", role : ""})
+        setSearchField({name : "", role : "all"});
+        return setUserDetails(usersAll);
     };
 
 
@@ -49,7 +53,8 @@ export default function Home() {
     };
 
     const handleEdit = (index) => {
-
+        setEditModalOpen(true);
+        setEditRow(index);
     };
 
     return (
@@ -92,7 +97,7 @@ export default function Home() {
                             <td>{user.phone}</td>
                             <td>{user.dept}</td>
                             <td>{user.role}</td>
-                            {user.role === "admin" && <td><button onClick={() => handleEdit(index)}>Edit</button></td>}
+                            {currentUser.role === "admin" && <td><button onClick={() => handleEdit(index)}>Edit</button></td>}
                         </tr>
                     ))}
                 </tbody>
