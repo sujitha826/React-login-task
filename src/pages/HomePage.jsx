@@ -1,19 +1,19 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SearchBar from "../components/Search";
+import EditModal from "../components/EditPopUp";
 import "../css/HomeStyle.css";
 
 export default function Home() {
     const { state } = useLocation();          // current user details as state passed from login page as { state : user }      
     console.log("State(current user) returned to home page" + JSON.stringify(state));
     const navigate = useNavigate();
-    const filterRef = useRef();
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     const usersAll = JSON.parse(localStorage.getItem("usersAll"));
 
     const [userDetails, setUserDetails] = useState(usersAll);
-    const [searchField, setSearchField] = useState({name : "", role : "all"});              // Search object with 2 fields: name and role
+    const [searchField, setSearchField] = useState({ name: "", role: "all" });              // Search object with 2 fields: name and role
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editRow, setEditRow] = useState("");
 
@@ -42,7 +42,7 @@ export default function Home() {
 
 
     const handleClear = () => {
-        setSearchField({name : "", role : "all"});
+        setSearchField({ name: "", role: "all" });
         return setUserDetails(usersAll);
     };
 
@@ -57,8 +57,16 @@ export default function Home() {
         setEditRow(index);
     };
 
+
     return (
         <div className="home_page">
+            {editModalOpen && (
+                <EditModal
+                    setEditModalOpen={setEditModalOpen}
+                    editRow={editRow}
+                    setUserDetails={setUserDetails}
+                />
+            )}
             <header style={{ display: "flex", flexDirection: "row", height: "10%", width: "100%" }}>
                 <h2 style={{ color: "blue", justifyContent: "center" }}>Welcome  {currentUser.name}!!</h2>
                 <button
@@ -74,7 +82,7 @@ export default function Home() {
                         marginTop: "20px"
                     }} onClick={handleLogOut} >Logout</button>
             </header>
-            <SearchBar searchField = {searchField} handleSearchTextChange={handleSearchTextChange} handleClear={handleClear} handleSearchSubmit={handleSearchSubmit} />
+            <SearchBar searchField={searchField} handleSearchTextChange={handleSearchTextChange} handleClear={handleClear} handleSearchSubmit={handleSearchSubmit} />
 
             <table className="table-style">
                 <thead>
@@ -97,7 +105,7 @@ export default function Home() {
                             <td>{user.phone}</td>
                             <td>{user.dept}</td>
                             <td>{user.role}</td>
-                            {currentUser.role === "admin" && <td><button onClick={() => handleEdit(index)}>Edit</button></td>}
+                            {currentUser.role === "admin" && <td><button style={{ color: "blue", cursor: "pointer" }} onClick={() => handleEdit(index)}>Edit</button></td>}
                         </tr>
                     ))}
                 </tbody>

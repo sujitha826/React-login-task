@@ -20,7 +20,7 @@ function styleSelector(field) {
   return (field === "valid") ? style1 : style2;
 }
 
-export default function Input({ title, type, value, onChange, placeholder, name }) {
+export default function Input({ title, type, value, onChange, placeholder, name, disabled}) {
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
       <p>{title}</p>
@@ -37,6 +37,7 @@ export default function Input({ title, type, value, onChange, placeholder, name 
         onChange={(e) => onChange(e)}
         placeholder={placeholder}
         value={value}
+        disabled={disabled}
       />
     </div>
   );
