@@ -15,7 +15,7 @@ export default function Home() {
     const [userDetails, setUserDetails] = useState(usersAll);
     const [searchField, setSearchField] = useState({ name: "", role: "all" });              // Search object with 2 fields: name and role
     const [editModalOpen, setEditModalOpen] = useState(false);
-    const [editRow, setEditRow] = useState("");
+    const [editUser, setEditUser] = useState("");
 
 
     const handleSearchTextChange = (e) => {
@@ -30,7 +30,7 @@ export default function Home() {
         const result = usersAll.filter((user) =>
             (user.name.toLowerCase().includes(searchField.name.toLowerCase()) && (user.role === searchField.role))
         );
-        console.log(result);
+        // console.log(result);
         if (currentUser.role === "admin") setUserDetails(result);
         else {
             const filteredUsers = result.filter(
@@ -40,21 +40,19 @@ export default function Home() {
         }
     };
 
-
     const handleClear = () => {
         setSearchField({ name: "", role: "all" });
         return setUserDetails(usersAll);
     };
-
 
     const handleLogOut = () => {
         localStorage.removeItem("currentUser");
         navigate("/");
     };
 
-    const handleEdit = (index) => {
+    const handleEdit = (user) => {
         setEditModalOpen(true);
-        setEditRow(index);
+        setEditUser(user);                    // => editUser = user = {}
     };
 
 
@@ -63,7 +61,7 @@ export default function Home() {
             {editModalOpen && (
                 <EditModal
                     setEditModalOpen={setEditModalOpen}
-                    editRow={editRow}
+                    editUser={editUser}
                     setUserDetails={setUserDetails}
                 />
             )}
@@ -105,7 +103,7 @@ export default function Home() {
                             <td>{user.phone}</td>
                             <td>{user.dept}</td>
                             <td>{user.role}</td>
-                            {currentUser.role === "admin" && <td><button style={{ color: "blue", cursor: "pointer" }} onClick={() => handleEdit(index)}>Edit</button></td>}
+                            {currentUser.role === "admin" && <td><button style={{ color: "blue", cursor: "pointer" }} onClick={() => handleEdit(user)}>Edit</button></td>}
                         </tr>
                     ))}
                 </tbody>

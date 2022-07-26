@@ -50,19 +50,18 @@ function Register() {
 
     if (!validateEmail(formInput.email)) {
       return setEmailError(true);
-      // return alert("Please enter a valid email");
     };
 
     if (!validatePhone(formInput.phone))
       return setPhoneError(true);
-    //return alert("Please enter a valid phone number");
+
 
     if (!validatePassword(formInput.password))
       return setPasswordError(true);
-    //return alert("Password should contain atleast one alphabet,one digit and minimum 8 total chars");
+
     if (!(formInput.password === formInput.confirmPassword))
       return setConfirmPasswordError(true);
-    //return alert("Password and Confirm Password do not match.");
+
 
     console.log("User Inputs - " + JSON.stringify(formInput));
 
@@ -70,6 +69,7 @@ function Register() {
     if (!usersAll) {
       const usersData = [{ ...formInput }];
       localStorage.setItem("usersAll", JSON.stringify(usersData));
+      navigate("/");
     }
     else {
       const isUserExisting = usersAll.find(
@@ -77,14 +77,12 @@ function Register() {
       );
       if (isUserExisting) {
         console.log("User already exists try login once");
-        return setPopupShow(true);
-        //return alert("User already exists try login once");               //  user already exists popup window
+        return setPopupShow(true);                                            //  user already exists popup window
       }
       const usersData = [...usersAll, formInput];
       localStorage.setItem("usersAll", JSON.stringify(usersData));
       navigate("/");
     }
-    // return alert("Successfully submitted registration");
   };
 
   return (
@@ -189,9 +187,9 @@ function Register() {
             Already a user?? try login here
           </Link>
         </div>
-      {popupShow && <PopUp setPopupShow= {setPopupShow}/>}
+        {popupShow && <PopUp setPopupShow={setPopupShow} />}
       </div>
-      
+
     </div>
   );
 }

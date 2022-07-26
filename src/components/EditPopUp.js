@@ -4,9 +4,10 @@ import Input from "./Input";
 import { validatePassword, validatePhone } from "../validators/validateInputs";
 import "../css/EditPopUpStyle.css";
 
-export default function EditModal({ editRow, setEditModalOpen, setUserDetails }) {
+export default function EditModal({ editUser, setEditModalOpen, setUserDetails }) {
     const usersAll = JSON.parse(localStorage.getItem("usersAll"));
-    const editUser = usersAll[editRow];                         // editRow -index of the user details which is to be edited
+    // editUser - user details which is to be edited
+    console.log("User details to be updated: " + JSON.stringify(editUser));
 
     const [editForm, setEditForm] = useState({
         name: editUser.name,
@@ -14,14 +15,10 @@ export default function EditModal({ editRow, setEditModalOpen, setUserDetails })
         phone: editUser.phone,
         gender: editUser.gender,
         dept: editUser.dept,
-        role: editUser.role,
-        password: editUser.password,
-        confirmPassword: editUser.confirmPassword,
+        role: editUser.role
     });
-
+    
     const [phoneError, setPhoneError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-    const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
     const handleNewChanges = (e) => {
         setEditForm({
@@ -30,41 +27,43 @@ export default function EditModal({ editRow, setEditModalOpen, setUserDetails })
         });
     };
 
-    const handleUpdateForm = (editRow) => {
+    const handleUpdateForm = (editUser) => {
         if (
-            editForm.password === "" ||
             editForm.name === "" ||
             editForm.phone === ""
         )
             return alert(
-                "Name, email, phone and password are mandatory...please fill all 4 fields"
+                "Name, email and phone are mandatory...please fill all 4 fields"
             );
 
         if (!validatePhone(editForm.phone))
             return setPhoneError(true);
 
-        if (!validatePassword(editForm.password))
-            return setPasswordError(true);
-
-        if (!(editForm.password === editForm.confirmPassword))
-            return setConfirmPasswordError(true);
-
-        const othersDetails = usersAll.filter((user, index) => index !== editRow);                 // other users in the array
+        // const othersDetails = usersAll.filter((user, index) => index !== editRow);                 // other users in the array
         const editedUser = {
             ...editUser,
             ["name"]: editForm.name,
             ["gender"]: editForm.gender,
             ["phone"]: editForm.phone,
             ["dept"]: editForm.dept,
-            ["role"]: editForm.role,
-            ["password"]: editForm.password,
-            ["confirmPassword"]: editForm.confirmPassword
+            ["role"]: editForm.role
         };
-        const newUsersAll = [...othersDetails, editedUser];
+        console.log("User details after update:" + JSON.stringify(editedUser));
+        const item = usersAll.filter((each) => editedUser.email === each.email);
+        console.log("item" + JSON.stringify(item));
+        if (item) {
+            let index = usersAll.indexOf(item[0]);
+            console.log(index);
+            usersAll[index] = editedUser;
+            setUserDetails(usersAll);                                           // function used to update table display
+            console.log(usersAll);
+            localStorage.setItem("usersAll", JSON.stringify(usersAll));
+        }
 
-        localStorage.setItem("usersAll", JSON.stringify(newUsersAll));          // update local storage
-        setUserDetails(newUsersAll);                                            // render new details to table
-        setEditModalOpen(false);                                                // disappear edit modal
+        // const newUsersAll = [...othersDetails, editedUser];
+        // localStorage.setItem("usersAll", JSON.stringify(newUsersAll));          // update local storage
+        // setUserDetails(newUsersAll);                                            // render new details to the table
+        setEditModalOpen(false);                                                   // disappear edit modal
     }
 
     return (
@@ -74,7 +73,6 @@ export default function EditModal({ editRow, setEditModalOpen, setUserDetails })
                     <div className="modal_header">
                         <h2 className="modal_heading">Edit User details</h2><FaTimes style={{ color: "red", cursor: "pointer" }} onClick={() => setEditModalOpen(false)} />
                     </div>
-
 
                     <div className="modal_form">
                         <div style={{ width: "60%" }}>
@@ -138,30 +136,12 @@ export default function EditModal({ editRow, setEditModalOpen, setUserDetails })
                                 </label>
                             </div>
 
-                            <Input
-                                title="Password"
-                                type="password"
-                                name="password"
-                                onChange={handleNewChanges}
-                                value={editForm.password}
-                                placeholder="Enter Password"
-                            />
-                            {passwordError && <div className="invalid">Password should contain atleast one alphabet,one digit and minimum 8 total chars</div>}
 
-                            <Input
-                                title="Confirm Password"
-                                type="password"
-                                name="confirmPassword"
-                                onChange={handleNewChanges}
-                                value={editForm.confirmPassword}
-                                placeholder="Confirm Password"
-                            />
-                            {confirmPasswordError && <div className="invalid">Password and Confirm Password do not match.</div>}
                         </div>
                         <div className="modal_actions">
                             <button
                                 className="update_btn"
-                                onClick={() => handleUpdateForm(editRow)}
+                                onClick={() => handleUpdateForm(editUser)}
                             >
                                 Save Changes
                             </button>
