@@ -76,13 +76,13 @@ export default function ForgotPassword({ setshowforgotModal }) {
 
     return (
         <>
-            <div className="modal_page">
-                <div className="modal_container">
-                    <div className="modal_header">
-                        <h2 className="modal_heading">FORGOT PASSWORD</h2>
+            <div className="forgot_page">
+                <div className="forgot_container">
+                    <div className="forgot_header">
+                        <h2 className="forgot_heading">FORGOT PASSWORD</h2>
                     </div>
 
-                    <div className="modal_form">
+                    <div className="forgot_form">
                         <div style={{ width: "60%" }}>
                             <Input
                                 title="Email"
@@ -101,15 +101,15 @@ export default function ForgotPassword({ setshowforgotModal }) {
                         )}
                     </div>
 
-                    <div className="modal_actions">
+                    <div className="forgot_actions">
                         <button
-                            className="btn"
+                            className="butn"
                             onClick={showReset ? resetPassword : handleVerifyEmail}
                         >
                             {showReset ? "Reset Password" : "Verify Email"}
                         </button>
                         <button
-                            className="cancel_btn"
+                            className="can_btn"
                             onClick={() => setshowforgotModal(false)}
                         >
                             Cancel

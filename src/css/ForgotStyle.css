@@ -1,88 +1,91 @@
-.modal_page {
-    position: fixed;
-    top: 50%;
+.forgot_page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 60%;
     left: 40%;
     transform: translate(-50%, -50%);
-    filter:alpha(opacity=90);
 }
 
-.modal_container {
-    width: 500px;
-    height: 500px;
-    background: #16ccecf1;
+.forgot_container {
+    width: 400px;
+    height: 400px;
     color: rgb(255, 255, 255);
     border-radius: 16px;
     border: #2c3e50;
+    background: rgba(76, 175, 175, 0.6);    
 }
 
-.modal_header {
+.forgot_header {
     height: 50px;
-    background: whitesmoke;
+    background: rgba(76, 175, 175, 0.6);
     overflow: hidden;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
 }
 
-.modal_heading {
+.forgot_heading {
     margin: 0;
     padding: 10px;
     color: #2c3e50;
     font-weight: 500;
-    font-size: 23px;
+    font-size: 20px;
     text-align: center;
 }
 
-.modal_form {
+.forgot_form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    font-size: 14px;
+    font-size: 16px;
     color: #2c3e50;
     align-items: center;
 }
 
-.modal_actions {
+.forgot_actions {
     position: absolute;
     bottom: 3px;
     margin-bottom: 25px;
-    width: 100%;
+    width: 80%;
     align-items: center;
     display: flex;
     justify-content: space-around;
-    margin-left: 50px;
+    margin-left: 40px;
 }
 
-.btn {
-    margin-top: 5px;
+.butn {
+    margin-top: 6px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 400;
     padding: 11px 28px;
-    border-radius: 12px;
-    font-size: 0.8rem;
+    border-radius: 11px;
+    font-size: 0.9rem;
     border: none;
     color: #fff;
-    background: #1973e8f1;
+    background: #1973e8d8;
     transition: all 0.25s ease;
 }
 
-.btn:hover {
-    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+.butn:hover {
+    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.87);
     transform: translateY(-5px);
 }
 
-.cancel_btn {
-    margin-top: 5px;
+.can_btn {
+    margin-top: 6px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 400;
     padding: 11px 28px;
-    border-radius: 12px;
-    font-size: 0.8rem;
+    border-radius: 11px;
+    font-size: 0.9rem;
     border: none;
     color: white;
-    background: #ff3e4eda;
+    background: #ff3e4ee5;
     transition: all 0.25s ease;
 }
 
-.cancel_btn:hover {
+.can_btn:hover {
+    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.87);
     transform: translateY(-5px);
 }

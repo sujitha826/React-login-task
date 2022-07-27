@@ -9,7 +9,6 @@ export default function AddResetPassword({ inputPassword, setInputPassword }) {
             ...inputPassword,
             [e.target.name]: e.target.value
         });
-        console.log("password changes" + JSON.stringify(inputPassword));
     }
 
     return (
