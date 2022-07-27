@@ -1,0 +1,88 @@
+.modal_page {
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    filter:alpha(opacity=90);
+}
+
+.modal_container {
+    width: 500px;
+    height: 500px;
+    background: #16ccecf1;
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
+    border: #2c3e50;
+}
+
+.modal_header {
+    height: 50px;
+    background: whitesmoke;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.modal_heading {
+    margin: 0;
+    padding: 10px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 23px;
+    text-align: center;
+}
+
+.modal_form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #2c3e50;
+    align-items: center;
+}
+
+.modal_actions {
+    position: absolute;
+    bottom: 3px;
+    margin-bottom: 25px;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 50px;
+}
+
+.btn {
+    margin-top: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+    background: #1973e8f1;
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+    transform: translateY(-5px);
+}
+
+.cancel_btn {
+    margin-top: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: none;
+    color: white;
+    background: #ff3e4eda;
+    transition: all 0.25s ease;
+}
+
+.cancel_btn:hover {
+    transform: translateY(-5px);
+}

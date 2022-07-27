@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import Input from "./Input";
-import { validatePassword, validatePhone } from "../validators/validateInputs";
+import { validatePhone } from "../validators/validateInputs";
 import "../css/EditPopUpStyle.css";
 
 export default function EditModal({ editUser, setEditModalOpen, setUserDetails }) {
@@ -17,7 +17,7 @@ export default function EditModal({ editUser, setEditModalOpen, setUserDetails }
         dept: editUser.dept,
         role: editUser.role
     });
-    
+
     const [phoneError, setPhoneError] = useState(false);
 
     const handleNewChanges = (e) => {
